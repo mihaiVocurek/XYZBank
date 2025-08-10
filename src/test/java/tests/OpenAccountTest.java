@@ -23,14 +23,10 @@ public class OpenAccountTest extends SharedData {
         bankManagerOpenAccountPage.chooseCustomerName("Hermoine Granger");
         bankManagerOpenAccountPage.chooseCurrency("Dollar");
         bankManagerOpenAccountPage.clickProcess();
-
-        System.out.println(bankManagerOpenAccountPage.getAlertText());
-        System.out.println(bankManagerOpenAccountPage.getNewAccountNumer());
         bankManagerOpenAccountPage.validateNewAccountCreated();
         bankManagerOpenAccountPage.dealAlertOk();
 
         clearEnvironment();
-
     }
 
 }

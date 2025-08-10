@@ -8,8 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-import javax.lang.model.element.Element;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ElementHelper {
@@ -61,6 +61,16 @@ public class ElementHelper {
         pressElement(element,keyValue);
     }
 
+    public ArrayList<String> getElementsInListAsText(List<WebElement> elements){
+        waitVisibleList(elements);
+        ArrayList<String> elementsText = new ArrayList<String>();
+        for (int index=0; index < elements.size(); index++)
+        {
+            elementsText.add(elements.get(index).getText());
+        }
+        return elementsText;
+    }
+
     public void validateListSize(List<WebElement> elementList, int expectedSize){
         waitVisibleList(elementList);
         Assert.assertEquals(elementList.size(), expectedSize, "Actual element list size is " + elementList.size() + " which is different than " +expectedSize);
@@ -74,6 +84,18 @@ public class ElementHelper {
     public void validateElementEqualsText(WebElement element, String expectedText){
         waitVisibleElement(element);
         Assert.assertEquals(element.getText(), expectedText, "Actual element text " + element.getText() + " is not equal to " + expectedText);
+    }
+
+    public void validateTableOrder(List<WebElement> elements, ArrayList<String> orderedTextValues){
+        waitVisibleList(elements);
+        int counter = 0;
+        for (int index=0; index < elements.size(); index++)
+        {
+            if (elements.get(index).getText().equals(orderedTextValues.get(index))){
+                counter++;
+            }
+        }
+        Assert.assertEquals(counter, elements.size(), "List is not ordered");
     }
 
     public void waitVisibleElement(WebElement element){

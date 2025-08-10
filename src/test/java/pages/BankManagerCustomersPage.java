@@ -3,7 +3,11 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BankManagerCustomersPage extends BasePage{
@@ -27,22 +31,34 @@ public class BankManagerCustomersPage extends BasePage{
     @FindBy(xpath = "//table/tbody//td")
     private List<WebElement> allCustomerInfo;
 
+    @FindBy(xpath = "//table/tbody//td[1]")
+    private List<WebElement> allCustomerFirstNames;
+
+    @FindBy(xpath = "//table/tbody//td[2]")
+    private List<WebElement> allCustomerLastNames;
+
+    @FindBy(xpath = "//table/tbody//td[3]")
+    private List<WebElement> allCustomerPostCodes;
+
+    @FindBy(xpath = "//table/tbody//span")
+    private List<WebElement> allVisibleAccountNumbers;
+
     @FindBy(xpath = "//button[@ng-click = 'deleteCust(cust)']")
     private List<WebElement> deleteButtons;
 
-    public void fillCustomerName(String customerName){
+    public void searchCustomerName(String customerName){
         elementHelper.fillElement(searchCustomer, customerName);
     }
 
-    public void clickSortFirstName(){
+    public void clickSortByFirstName(){
         elementHelper.clickJSElement(sortFirstName);
     }
 
-    public void clickSortLastName(){
+    public void clickSortByLastName(){
         elementHelper.clickJSElement(sortLastName);
     }
 
-    public void clickSortPostCode(){
+    public void clickSortByPostCode(){
         elementHelper.clickJSElement(sortPostCode);
     }
 
@@ -59,5 +75,57 @@ public class BankManagerCustomersPage extends BasePage{
         }
     }
 
+    private ArrayList<String> sortWebElementListAscending(List<WebElement> elements){
+        ArrayList<String> sortedValues = elementHelper.getElementsInListAsText(elements);
+        Collections.sort(sortedValues);
+        return sortedValues;
+    }
 
+    private ArrayList<String> sortWebElementListDescending(List<WebElement> elements){
+        ArrayList<String> sortedValues = elementHelper.getElementsInListAsText(elements);
+        Collections.sort(sortedValues, Collections.reverseOrder());
+        return sortedValues;
+    }
+
+    public void validateOrderByFirstNameAscending(){
+        elementHelper.validateTableOrder(allCustomerFirstNames,sortWebElementListAscending(allCustomerFirstNames));
+    }
+
+    public void validateOrderByFirstNameDescending(){
+        elementHelper.validateTableOrder(allCustomerFirstNames,sortWebElementListDescending(allCustomerFirstNames));
+    }
+
+    public void validateOrderByLastNameAscending(){
+        elementHelper.validateTableOrder(allCustomerLastNames,sortWebElementListAscending(allCustomerLastNames));
+    }
+
+    public void validateOrderByLastNameDescending(){
+        elementHelper.validateTableOrder(allCustomerLastNames,sortWebElementListDescending(allCustomerLastNames));
+    }
+
+    public void validateOrderByPostCodeAscending(){
+        elementHelper.validateTableOrder(allCustomerPostCodes,sortWebElementListAscending(allCustomerPostCodes));
+    }
+
+    public void validateOrderByPostCodeDescending(){
+        elementHelper.validateTableOrder(allCustomerPostCodes,sortWebElementListDescending(allCustomerPostCodes));
+    }
+
+    public void validateSearchedCustomer(String customerName, boolean isLastName){
+        if(isLastName)
+        {
+            elementHelper.validateElementContainsText(allCustomerInfo.get(1),customerName);
+        } else elementHelper.validateElementContainsText(allCustomerInfo.get(0),customerName);
+    }
+
+    public void validateAccountNumberForCustomer(int accountNumber){
+
+        for(int index = 0; index < allVisibleAccountNumbers.size();index++)
+        {
+            if (Integer.parseInt(allVisibleAccountNumbers.get(index).getText()) == accountNumber)
+            {
+                elementHelper.validateElementContainsText(allVisibleAccountNumbers.get(index), String.valueOf(accountNumber));
+            }
+        }
+    }
 }

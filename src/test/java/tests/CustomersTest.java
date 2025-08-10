@@ -20,6 +20,23 @@ public class CustomersTest extends SharedData {
 
         BankManagerCustomersPage bankManagerCustomersPage = new BankManagerCustomersPage(getDriver());
         bankManagerCustomersPage.deleteCustomer("Albus","Dumbledore","E55656");
+        bankManagerCustomersPage.clickSortByFirstName();
+        bankManagerCustomersPage.validateOrderByFirstNameDescending();
+        bankManagerCustomersPage.clickSortByFirstName();
+        bankManagerCustomersPage.validateOrderByFirstNameAscending();
+
+        bankManagerCustomersPage.clickSortByLastName();
+        bankManagerCustomersPage.validateOrderByLastNameDescending();
+        bankManagerCustomersPage.clickSortByLastName();
+        bankManagerCustomersPage.validateOrderByLastNameAscending();
+
+        bankManagerCustomersPage.clickSortByPostCode();
+        bankManagerCustomersPage.validateOrderByPostCodeDescending();
+        bankManagerCustomersPage.clickSortByPostCode();
+        bankManagerCustomersPage.validateOrderByPostCodeAscending();
+
+        bankManagerCustomersPage.searchCustomerName("Longbottom");
+        bankManagerCustomersPage.validateSearchedCustomer("Longbottom",true);
     }
 
 }

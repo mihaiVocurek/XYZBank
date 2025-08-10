@@ -20,16 +20,10 @@ public class AddNewCustomerTest extends SharedData {
         bankManagerPage.interactWithAddCustomer();
 
         BankManagerAddCustomerPage bankManagerAddCustomerPage = new BankManagerAddCustomerPage(getDriver());
-
         bankManagerAddCustomerPage.addNewCustomer("Gigi", "Babanu", "98765");
-        System.out.println(bankManagerAddCustomerPage.getAlertText());
-
         bankManagerAddCustomerPage.validateNewCustomerAdded();
-        System.out.println(bankManagerAddCustomerPage.getNewCustomerId());
-
         bankManagerAddCustomerPage.dealAlertOk();
 
         clearEnvironment();
     }
-
 }
