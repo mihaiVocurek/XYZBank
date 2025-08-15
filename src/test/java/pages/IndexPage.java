@@ -30,4 +30,9 @@ public class IndexPage extends BasePage{
     public void interactWithBankManagerMenu(){
         elementHelper.clickJSElement(elementBankManagerLogin);
     }
+
+    public void refreshWebpage(){
+        driver.navigate().refresh();
+    }
+
 }

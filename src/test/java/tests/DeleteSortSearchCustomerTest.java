@@ -6,7 +6,7 @@ import pages.BankManagerPage;
 import pages.IndexPage;
 import sharedData.SharedData;
 
-public class CustomersTest extends SharedData {
+public class DeleteSortSearchCustomerTest extends SharedData {
 
     @Test
     public void testMethod(){

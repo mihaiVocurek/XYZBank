@@ -5,6 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
+import java.util.Objects;
+
 
 public class BankManagerOpenAccountPage extends BasePage{
 
@@ -21,14 +24,44 @@ public class BankManagerOpenAccountPage extends BasePage{
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement processButton;
 
+    @FindBy(xpath = "//select/option[@ng-repeat]")
+    private List<WebElement> allCustomerNames;
+
+    @FindBy(xpath = "//select[@id = 'currency']/option[@value != '']")
+    private List<WebElement> allCurrencies;
+
     public void chooseCustomerName(String customerFullName){
         Select customerList = new Select(selectCustomerName);
-        customerList.selectByVisibleText(customerFullName);
+        int notFoundCounter=0;
+        for (int index = 0; index<allCustomerNames.size();index++)
+        {
+            if (Objects.equals(customerFullName,allCustomerNames.get(index).getText()))
+            {
+                customerList.selectByVisibleText(customerFullName);
+            } else notFoundCounter++;
+        }
+        if(notFoundCounter == allCustomerNames.size())
+        {
+            System.out.println("This customer name does not exist");
+        }
+
     }
 
     public void chooseCurrency(String currencyValue){
         Select currencyList = new Select(selectCurrency);
-        currencyList.selectByVisibleText(currencyValue);
+        int notFoundCounter = 0;
+        for(int index = 0; index<allCurrencies.size();index++)
+        {
+            if (Objects.equals(currencyValue,allCurrencies.get(index).getText()))
+            {
+                currencyList.selectByValue(currencyValue);
+            } else notFoundCounter++;
+        }
+        if(notFoundCounter == allCurrencies.size())
+        {
+            System.out.println("This currency does not exist");
+        }
+
     }
 
     public void clickProcess(){

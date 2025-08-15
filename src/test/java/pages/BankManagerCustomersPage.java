@@ -88,30 +88,37 @@ public class BankManagerCustomersPage extends BasePage{
     }
 
     public void validateOrderByFirstNameAscending(){
+        elementHelper.waitVisibleList(allCustomerFirstNames);
         elementHelper.validateTableOrder(allCustomerFirstNames,sortWebElementListAscending(allCustomerFirstNames));
     }
 
     public void validateOrderByFirstNameDescending(){
+        elementHelper.waitVisibleList(allCustomerFirstNames);
         elementHelper.validateTableOrder(allCustomerFirstNames,sortWebElementListDescending(allCustomerFirstNames));
     }
 
     public void validateOrderByLastNameAscending(){
+        elementHelper.waitVisibleList(allCustomerLastNames);
         elementHelper.validateTableOrder(allCustomerLastNames,sortWebElementListAscending(allCustomerLastNames));
     }
 
     public void validateOrderByLastNameDescending(){
+        elementHelper.waitVisibleList(allCustomerLastNames);
         elementHelper.validateTableOrder(allCustomerLastNames,sortWebElementListDescending(allCustomerLastNames));
     }
 
     public void validateOrderByPostCodeAscending(){
+        elementHelper.waitVisibleList(allCustomerPostCodes);
         elementHelper.validateTableOrder(allCustomerPostCodes,sortWebElementListAscending(allCustomerPostCodes));
     }
 
     public void validateOrderByPostCodeDescending(){
+        elementHelper.waitVisibleList(allCustomerPostCodes);
         elementHelper.validateTableOrder(allCustomerPostCodes,sortWebElementListDescending(allCustomerPostCodes));
     }
 
     public void validateSearchedCustomer(String customerName, boolean isLastName){
+        elementHelper.waitVisibleList(allCustomerInfo);
         if(isLastName)
         {
             elementHelper.validateElementContainsText(allCustomerInfo.get(1),customerName);
@@ -119,7 +126,7 @@ public class BankManagerCustomersPage extends BasePage{
     }
 
     public void validateAccountNumberForCustomer(int accountNumber){
-
+        elementHelper.waitVisibleList(allVisibleAccountNumbers);
         for(int index = 0; index < allVisibleAccountNumbers.size();index++)
         {
             if (Integer.parseInt(allVisibleAccountNumbers.get(index).getText()) == accountNumber)

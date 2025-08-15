@@ -7,9 +7,7 @@ import pages.CustomerTransactionsPage;
 import pages.IndexPage;
 import sharedData.SharedData;
 
-import java.time.LocalDateTime;
-
-public class CustomerTransactionsTest extends SharedData {
+public class ResetCustomerTransactionsTest extends SharedData {
 
     @Test
     public void testMethod(){
@@ -29,14 +27,12 @@ public class CustomerTransactionsTest extends SharedData {
         customerAccountPage.clickTransactionsButton();
 
         CustomerTransactionsPage customerTransactionsPage = new CustomerTransactionsPage(getDriver());
-        customerTransactionsPage.pressBackButton();
+        customerTransactionsPage.clickBackButton();
 
         customerAccountPage.validateUserLogin(userFullName);
 
-        customerAccountPage.clickTransactionsButton();
-        customerTransactionsPage.pressResetButton();
+        customerTransactionsPage.clickResetButton();
         customerTransactionsPage.validateEmptyTable();
-
 
         clearEnvironment();
 

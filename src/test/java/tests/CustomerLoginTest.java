@@ -13,8 +13,8 @@ public class CustomerLoginTest extends SharedData {
 
         openBrowser();
 
-        String userFullName = "Harry Potter";
-        String accountNumber = "1005";
+        String userFullName = "Ron Weasly";
+        String accountNumber = "1010";
 
         IndexPage indexPage = new IndexPage(getDriver());
         indexPage.interactWithCustomerMenu();
@@ -29,16 +29,16 @@ public class CustomerLoginTest extends SharedData {
         customerAccountPage.validateAccountSelection(accountNumber);
 
         customerAccountPage.clickDepositButton();
-        customerAccountPage.enterDepositAmount("100");
+        customerAccountPage.enterDepositAmount(100);
         customerAccountPage.validateSuccessfulDeposit();
 
         customerAccountPage.clickWithdrawalButton();
         Thread.sleep(1000);
-        customerAccountPage.enterWithdrawalAmount("50");
+        customerAccountPage.enterWithdrawalAmount(50);
         customerAccountPage.validateSuccessfulWithdrawal();
 
         customerAccountPage.clickWithdrawalButton();
-        customerAccountPage.enterWithdrawalAmount("2000");
+        customerAccountPage.enterWithdrawalAmount(2000);
         customerAccountPage.validateUnsuccessfulWithdrawal();
 
 

@@ -4,8 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CustomerAccountPage extends BasePage{
 
@@ -24,6 +27,9 @@ public class CustomerAccountPage extends BasePage{
 
     @FindBy(id = "accountSelect")
     private WebElement selectAccount;
+
+    @FindBy(xpath = "//select/option")
+    private List<WebElement> allUserAccounts;
 
     @FindBy(xpath = "//div/strong[@class='ng-binding']")
     private List<WebElement> selectAccountDetails;
@@ -48,8 +54,19 @@ public class CustomerAccountPage extends BasePage{
 
     public void selectAccountNumber(String accountNumber){
         elementHelper.clickJSElement(selectAccount);
+        int notFoundCounter = 0;
         Select accountList = new Select(selectAccount);
-        accountList.selectByVisibleText(accountNumber);
+        for (int index = 0; index<allUserAccounts.size(); index++)
+        {
+            if (Objects.equals(accountNumber, allUserAccounts.get(index).getText()))
+            {
+                accountList.selectByValue("number:" + accountNumber);
+            } else notFoundCounter++;
+        }
+        if(notFoundCounter == allUserAccounts.size())
+        {
+            System.out.println("This account number does not exist");
+        }
     }
 
     public void clickTransactionsButton(){
@@ -64,36 +81,59 @@ public class CustomerAccountPage extends BasePage{
         elementHelper.clickJSElement(withdrawalButton);
     }
 
-    public void enterDepositAmount(String amount){
+    public void enterDepositAmount(int amount){
         clickDepositButton();
-        elementHelper.fillElement(amountEntered, amount);
+        elementHelper.fillElement(amountEntered, String.valueOf(amount));
         elementHelper.clickJSElement(clickDepositOrWithdrawal);
     }
 
-    public void enterWithdrawalAmount(String amount){
+    public void enterWithdrawalAmount(int amount){
         clickWithdrawalButton();
-        elementHelper.fillElement(amountEntered, amount);
+        elementHelper.fillElement(amountEntered, String.valueOf(amount));
         elementHelper.clickJSElement(clickDepositOrWithdrawal);
     }
 
     public void validateSuccessfulDeposit(){
+        elementHelper.waitVisibleElement(messageAfterDepositWithdrawal);
         elementHelper.validateElementEqualsText(messageAfterDepositWithdrawal, "Deposit Successful");
     }
 
     public void validateSuccessfulWithdrawal(){
+        elementHelper.waitVisibleElement(messageAfterDepositWithdrawal);
         elementHelper.validateElementEqualsText(messageAfterDepositWithdrawal, "Transaction successful");
     }
 
     public void validateUnsuccessfulWithdrawal(){
+        elementHelper.waitVisibleElement(messageAfterDepositWithdrawal);
         elementHelper.validateElementEqualsText(messageAfterDepositWithdrawal, "Transaction Failed. You can not withdraw amount more than the balance.");
     }
 
     public void validateUserLogin(String user){
+        elementHelper.waitVisibleElement(welcomeMessage);
+        elementHelper.waitVisibleElement(userName);
         elementHelper.validateElementContainsText(welcomeMessage,"Welcome");
         elementHelper.validateElementContainsText(userName, user);
     }
 
     public void validateAccountSelection(String accountNumber) {
+        elementHelper.waitVisibleList(selectAccountDetails);
         elementHelper.validateElementContainsText(selectAccountDetails.get(0), accountNumber);
     }
+
+    public void validateBalanceAfterDeposit(int amount){
+        elementHelper.waitVisibleList(selectAccountDetails);
+        int initialDepositValue = Integer.parseInt(selectAccountDetails.get(1).getText());
+        enterDepositAmount(amount);
+        validateSuccessfulDeposit();
+        Assert.assertEquals(amount+initialDepositValue,Integer.parseInt(selectAccountDetails.get(1).getText()));
+    }
+
+    public void validateBalanceAfterWithdrawal(int amount){
+        elementHelper.waitVisibleList(selectAccountDetails);
+        int initialWithdrawalValue = Integer.parseInt(selectAccountDetails.get(1).getText());
+        enterWithdrawalAmount(amount);
+        validateSuccessfulWithdrawal();
+        Assert.assertEquals(initialWithdrawalValue - amount,Integer.parseInt(selectAccountDetails.get(1).getText()));
+    }
+
 }

@@ -1,16 +1,11 @@
 package pages;
 
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import sharedData.SharedData;
+import enums.transactionType;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 public class CustomerTransactionsPage extends BasePage {
@@ -43,16 +38,36 @@ public class CustomerTransactionsPage extends BasePage {
     @FindBy(xpath = "//tbody/tr")
     private List<WebElement> tableRows;
 
-    public void pressBackButton(){
+    @FindBy(xpath = "//tr[@id='anchor0']/td")
+    private List<WebElement> firstTableLine;
+
+    public void clickBackButton(){
         elementHelper.clickJSElement(backButton);
     }
 
-    public void pressResetButton(){
+    public void clickResetButton(){
         elementHelper.clickJSElement(resetButton);
     }
 
+    public void sortTransactionsByDateTime(){
+        elementHelper.clickJSElement(dateTimeButton);
+    }
+
     public void validateEmptyTable(){
+        elementHelper.waitVisibleList(tableRows);
         Assert.assertTrue(tableRows.isEmpty());
     }
 
+    public void validateLatestTransaction(int amount, transactionType transaction){
+        elementHelper.waitVisibleList(firstTableLine);
+        sortTransactionsByDateTime();
+        Assert.assertEquals(amount,Integer.parseInt(firstTableLine.get(1).getText()),"The amounts do not match");
+        if(transaction == transactionType.Deposit)
+        {
+            Assert.assertEquals(firstTableLine.get(2).getText(), "Credit", "Transaction Type is incorrect");
+        } else if(transaction == transactionType.Withdrawal)
+            {
+                Assert.assertEquals(firstTableLine.get(2).getText(), "Debit", "Transaction Type is incorrect");
+            }
+    }
 }

@@ -20,5 +20,4 @@ public class BasePage {
         alertHelper = new AlertHelper(driver);
         PageFactory.initElements(driver,this);
     }
-
 }

@@ -20,8 +20,8 @@ public class OpenAccountTest extends SharedData {
         bankManagerPage.interactWithOpenAccount();
 
         BankManagerOpenAccountPage bankManagerOpenAccountPage = new BankManagerOpenAccountPage(getDriver());
-        bankManagerOpenAccountPage.chooseCustomerName("Hermoine Granger");
-        bankManagerOpenAccountPage.chooseCurrency("Dollar");
+        bankManagerOpenAccountPage.chooseCustomerName("Harry Potter");
+        bankManagerOpenAccountPage.chooseCurrency("LEu");
         bankManagerOpenAccountPage.clickProcess();
         bankManagerOpenAccountPage.validateNewAccountCreated();
         bankManagerOpenAccountPage.dealAlertOk();
