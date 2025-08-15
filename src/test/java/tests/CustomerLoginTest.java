@@ -9,12 +9,10 @@ import sharedData.SharedData;
 public class CustomerLoginTest extends SharedData {
 
     @Test
-    public void testMethod() throws InterruptedException {
-
-        openBrowser();
+    public void testMethod() {
 
         String userFullName = "Ron Weasly";
-        String accountNumber = "1010";
+        String accountNumber = "1009";
 
         IndexPage indexPage = new IndexPage(getDriver());
         indexPage.interactWithCustomerMenu();
@@ -27,22 +25,5 @@ public class CustomerLoginTest extends SharedData {
         customerAccountPage.validateUserLogin(userFullName);
         customerAccountPage.selectAccountNumber(accountNumber);
         customerAccountPage.validateAccountSelection(accountNumber);
-
-        customerAccountPage.clickDepositButton();
-        customerAccountPage.enterDepositAmount(100);
-        customerAccountPage.validateSuccessfulDeposit();
-
-        customerAccountPage.clickWithdrawalButton();
-        Thread.sleep(1000);
-        customerAccountPage.enterWithdrawalAmount(50);
-        customerAccountPage.validateSuccessfulWithdrawal();
-
-        customerAccountPage.clickWithdrawalButton();
-        customerAccountPage.enterWithdrawalAmount(2000);
-        customerAccountPage.validateUnsuccessfulWithdrawal();
-
-
-        clearEnvironment();
     }
-
 }

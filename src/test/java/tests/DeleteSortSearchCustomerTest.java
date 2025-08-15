@@ -9,8 +9,7 @@ import sharedData.SharedData;
 public class DeleteSortSearchCustomerTest extends SharedData {
 
     @Test
-    public void testMethod(){
-        openBrowser();
+    public void testMethod() {
 
         IndexPage indexPage = new IndexPage(getDriver());
         indexPage.interactWithBankManagerMenu();

@@ -9,8 +9,6 @@ public class FullManagerFlowTest extends SharedData {
     @Test
     public void testMethod(){
 
-        openBrowser();
-
         String customerFirstName = "Fane";
         String customerLastName = "Babanu";
         String customerPostalCode = "L100";
@@ -42,8 +40,6 @@ public class FullManagerFlowTest extends SharedData {
         bankManagerCustomersPage.searchCustomerName(customerLastName);
         bankManagerCustomersPage.validateSearchedCustomer(customerLastName,true);
         bankManagerCustomersPage.validateAccountNumberForCustomer(accountNumber);
-
-        clearEnvironment();
 
     }
 

@@ -1,5 +1,6 @@
 package pages;
 
+import loggerUtility.LoggerUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -48,18 +49,22 @@ public class BankManagerCustomersPage extends BasePage{
 
     public void searchCustomerName(String customerName){
         elementHelper.fillElement(searchCustomer, customerName);
+        LoggerUtility.infoLog("User searches for a customer called: " + customerName);
     }
 
     public void clickSortByFirstName(){
         elementHelper.clickJSElement(sortFirstName);
+        LoggerUtility.infoLog("User sorts the table by First Name column");
     }
 
     public void clickSortByLastName(){
         elementHelper.clickJSElement(sortLastName);
+        LoggerUtility.infoLog("User sorts the table by Last Name column");
     }
 
     public void clickSortByPostCode(){
         elementHelper.clickJSElement(sortPostCode);
+        LoggerUtility.infoLog("User sorts the table by Post Code column");
     }
 
     public void deleteCustomer(String firstNameValue, String lastNameValue, String postCodeValue){
@@ -70,6 +75,7 @@ public class BankManagerCustomersPage extends BasePage{
                     && allCustomerInfo.get(index+2).getText().equals(postCodeValue) )
                 {
                     elementHelper.clickJSElement(deleteButtons.get(indexDelete));
+                    LoggerUtility.infoLog("User deletes the customer: " + firstNameValue + " " + lastNameValue + ", having Post Code: " + postCodeValue);
                 } else indexDelete++;
             }
         }
@@ -90,31 +96,37 @@ public class BankManagerCustomersPage extends BasePage{
     public void validateOrderByFirstNameAscending(){
         elementHelper.waitVisibleList(allCustomerFirstNames);
         elementHelper.validateTableOrder(allCustomerFirstNames,sortWebElementListAscending(allCustomerFirstNames));
+        LoggerUtility.infoLog("Table is sorted by First Name, in ascending order");
     }
 
     public void validateOrderByFirstNameDescending(){
         elementHelper.waitVisibleList(allCustomerFirstNames);
         elementHelper.validateTableOrder(allCustomerFirstNames,sortWebElementListDescending(allCustomerFirstNames));
+        LoggerUtility.infoLog("Table is sorted by First Name, in descending order");
     }
 
     public void validateOrderByLastNameAscending(){
         elementHelper.waitVisibleList(allCustomerLastNames);
         elementHelper.validateTableOrder(allCustomerLastNames,sortWebElementListAscending(allCustomerLastNames));
+        LoggerUtility.infoLog("Table is sorted by Last Name, in ascending order");
     }
 
     public void validateOrderByLastNameDescending(){
         elementHelper.waitVisibleList(allCustomerLastNames);
         elementHelper.validateTableOrder(allCustomerLastNames,sortWebElementListDescending(allCustomerLastNames));
+        LoggerUtility.infoLog("Table is sorted by Last Name, in descending order");
     }
 
     public void validateOrderByPostCodeAscending(){
         elementHelper.waitVisibleList(allCustomerPostCodes);
         elementHelper.validateTableOrder(allCustomerPostCodes,sortWebElementListAscending(allCustomerPostCodes));
+        LoggerUtility.infoLog("Table is sorted by Post Code, in ascending order");
     }
 
     public void validateOrderByPostCodeDescending(){
         elementHelper.waitVisibleList(allCustomerPostCodes);
         elementHelper.validateTableOrder(allCustomerPostCodes,sortWebElementListDescending(allCustomerPostCodes));
+        LoggerUtility.infoLog("Table is sorted by Post Code, in descending order");
     }
 
     public void validateSearchedCustomer(String customerName, boolean isLastName){
@@ -123,6 +135,7 @@ public class BankManagerCustomersPage extends BasePage{
         {
             elementHelper.validateElementContainsText(allCustomerInfo.get(1),customerName);
         } else elementHelper.validateElementContainsText(allCustomerInfo.get(0),customerName);
+        LoggerUtility.infoLog("User finds the customer using in the search bar: " + customerName);
     }
 
     public void validateAccountNumberForCustomer(int accountNumber){
@@ -132,6 +145,7 @@ public class BankManagerCustomersPage extends BasePage{
             if (Integer.parseInt(allVisibleAccountNumbers.get(index).getText()) == accountNumber)
             {
                 elementHelper.validateElementContainsText(allVisibleAccountNumbers.get(index), String.valueOf(accountNumber));
+                LoggerUtility.infoLog("User validates the account number " + accountNumber + " for the newly created customer");
             }
         }
     }

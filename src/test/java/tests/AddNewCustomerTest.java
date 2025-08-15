@@ -11,8 +11,6 @@ public class AddNewCustomerTest extends SharedData {
     @Test
     public void testMethod(){
 
-        openBrowser();
-
         IndexPage indexPage = new IndexPage(getDriver());
         indexPage.interactWithBankManagerMenu();
 
@@ -24,6 +22,5 @@ public class AddNewCustomerTest extends SharedData {
         bankManagerAddCustomerPage.validateNewCustomerAdded();
         bankManagerAddCustomerPage.dealAlertOk();
 
-        clearEnvironment();
     }
 }

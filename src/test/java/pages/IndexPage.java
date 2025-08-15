@@ -1,8 +1,11 @@
 package pages;
 
+import loggerUtility.LoggerUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.time.Duration;
 
 public class IndexPage extends BasePage{
 
@@ -21,18 +24,26 @@ public class IndexPage extends BasePage{
 
     public void interactWithHomeButton(){
         elementHelper.clickJSElement(homeButton);
+        LoggerUtility.infoLog("The user clicks on the Home button");
     }
 
     public void interactWithCustomerMenu(){
         elementHelper.clickJSElement(elementCustomerLogin);
+        LoggerUtility.infoLog("The user clicks on the Customer Login button");
     }
 
     public void interactWithBankManagerMenu(){
         elementHelper.clickJSElement(elementBankManagerLogin);
+        LoggerUtility.infoLog("The user clicks on the Bank Manager Login button");
     }
 
     public void refreshWebpage(){
         driver.navigate().refresh();
+        LoggerUtility.infoLog("The user refreshes the webpage");
+    }
+
+    public void waitInWebpage(){
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
 }

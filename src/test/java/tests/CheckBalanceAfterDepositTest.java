@@ -9,9 +9,7 @@ import sharedData.SharedData;
 public class CheckBalanceAfterDepositTest extends SharedData {
 
     @Test
-    public void testMethod() throws InterruptedException {
-
-        openBrowser();
+    public void testMethod() {
 
         String userFullName = "Hermoine Granger";
         int depositAmount = 100;
@@ -24,12 +22,9 @@ public class CheckBalanceAfterDepositTest extends SharedData {
         customerPage.clickLogin();
 
         CustomerAccountPage customerAccountPage = new CustomerAccountPage(getDriver());
+        customerAccountPage.clickDepositButton();
         customerAccountPage.enterDepositAmount(depositAmount);
         customerAccountPage.validateSuccessfulDeposit();
         customerAccountPage.validateBalanceAfterDeposit(depositAmount);
-
-        clearEnvironment();
-
     }
-
 }

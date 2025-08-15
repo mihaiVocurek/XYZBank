@@ -1,5 +1,6 @@
 package tests;
 
+import enums.transactionType;
 import org.testng.annotations.Test;
 import pages.CustomerAccountPage;
 import pages.CustomerPage;
@@ -7,29 +8,33 @@ import pages.CustomerTransactionsPage;
 import pages.IndexPage;
 import sharedData.SharedData;
 
-public class ResetCustomerTransactionsTest extends SharedData {
+public class CheckWithdrawalInTransactionsTest extends SharedData {
 
     @Test
-    public void testMethod(){
+    public void testMethod() {
 
-        String userFullName = "Hermoine Granger";
+        int depositAmount = 100;
+        int withdrawalAmount = 50;
 
         IndexPage indexPage = new IndexPage(getDriver());
         indexPage.interactWithCustomerMenu();
 
         CustomerPage customerPage = new CustomerPage(getDriver());
-        customerPage.chooseUserForLogin(userFullName);
+        customerPage.chooseUserForLogin("Hermoine Granger");
         customerPage.clickLogin();
 
         CustomerAccountPage customerAccountPage = new CustomerAccountPage(getDriver());
+        customerAccountPage.selectAccountNumber("1001");
+
+        customerAccountPage.clickWithdrawalButton();
+        customerAccountPage.enterWithdrawalAmount(50);
+        customerAccountPage.validateSuccessfulWithdrawal();
+        indexPage.refreshWebpage();
         customerAccountPage.clickTransactionsButton();
-        customerAccountPage.validateUserLogin(userFullName);
 
         CustomerTransactionsPage customerTransactionsPage = new CustomerTransactionsPage(getDriver());
-        customerTransactionsPage.clickBackButton();
+        customerTransactionsPage.validateLatestTransaction(withdrawalAmount, transactionType.Withdrawal);
 
-        customerAccountPage.clickTransactionsButton();
-        customerTransactionsPage.clickResetButton();
-        customerTransactionsPage.validateEmptyTable();
     }
+
 }

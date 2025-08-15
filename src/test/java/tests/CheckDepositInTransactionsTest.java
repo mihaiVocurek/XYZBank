@@ -8,12 +8,10 @@ import pages.CustomerTransactionsPage;
 import pages.IndexPage;
 import sharedData.SharedData;
 
-public class CheckTransactionsInTableTest extends SharedData {
+public class CheckDepositInTransactionsTest extends SharedData {
 
     @Test
-    public void testMethod() throws InterruptedException {
-
-        openBrowser();
+    public void testMethod() {
 
         int depositAmount = 100;
         int withdrawalAmount = 50;
@@ -30,26 +28,11 @@ public class CheckTransactionsInTableTest extends SharedData {
         customerAccountPage.clickDepositButton();
         customerAccountPage.enterDepositAmount(100);
         customerAccountPage.validateSuccessfulDeposit();
+
         customerAccountPage.clickTransactionsButton();
-        Thread.sleep(2000);
-        indexPage.refreshWebpage();
 
         CustomerTransactionsPage customerTransactionsPage = new CustomerTransactionsPage(getDriver());
         customerTransactionsPage.validateLatestTransaction(depositAmount, transactionType.Deposit);
-
-        customerTransactionsPage.clickBackButton();
-        indexPage.refreshWebpage();
-
-        customerAccountPage.clickWithdrawalButton();
-        customerAccountPage.enterWithdrawalAmount(50);
-        customerAccountPage.validateSuccessfulWithdrawal();
-        customerAccountPage.clickTransactionsButton();
-        Thread.sleep(2000);
-        indexPage.refreshWebpage();
-
-        customerTransactionsPage.validateLatestTransaction(withdrawalAmount, transactionType.Withdrawal);
-
-        clearEnvironment();
 
     }
 

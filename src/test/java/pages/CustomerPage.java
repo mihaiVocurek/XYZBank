@@ -1,5 +1,6 @@
 package pages;
 
+import loggerUtility.LoggerUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -31,16 +32,19 @@ public class CustomerPage extends BasePage{
             if (Objects.equals(userFullName,allAvailableAccounts.get(index).getText()))
             {
                 userList.selectByVisibleText(userFullName);
+                LoggerUtility.infoLog("The user: " + userFullName + " is selected");
             }
             else notFoundCounter++;
         }
         if (notFoundCounter == allAvailableAccounts.size())
         {
-            System.out.println("This user does not exist");
+            LoggerUtility.infoLog("The user: " + userFullName + " does not exist");
         }
+
     }
 
     public void clickLogin(){
         elementHelper.clickJSElement(loginButton);
+        LoggerUtility.infoLog("The user logs in");
     }
 }

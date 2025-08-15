@@ -1,26 +1,62 @@
 package sharedData;
 
+import loggerUtility.LoggerUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 import java.time.Duration;
 
 public class SharedData {
 
     private WebDriver driver;
+    private String browser;
 
     public WebDriver getDriver(){
         return driver;
     }
 
-    public void openBrowser(){
-        driver = new ChromeDriver();
-        driver.get("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    @BeforeMethod(alwaysRun = true)
+    public void prepareEnvironment(){
+        LoggerUtility.startTest(this.getClass().getSimpleName());
+
+        browser = System.getProperty("browser");
+
+        switch (browser){
+            case "Chrome":
+                ChromeBrowser chromeBrowser = new ChromeBrowser();
+                chromeBrowser.openBrowser();
+                driver = chromeBrowser.getDriver();
+                break;
+            case "Edge":
+                EdgeBrowser edgeBrowser = new EdgeBrowser();
+                edgeBrowser.openBrowser();
+                driver = edgeBrowser.getDriver();
+                break;
+            case "Firefox":
+                FirefoxBrowser firefoxBrowser = new FirefoxBrowser();
+                firefoxBrowser.openBrowser();
+                driver = firefoxBrowser.getDriver();
+                break;
+        }
+
+        LoggerUtility.infoLog("The browser " + browser  + " was opened with success");
     }
 
-    public void clearEnvironment(){
+    @AfterMethod(alwaysRun = true)
+    public void clearEnvironment(ITestResult result){
+        if(result.getStatus() == ITestResult.FAILURE)
+        {
+            LoggerUtility.errorLog(result.getThrowable().getMessage());
+        }
+
         driver.quit();
+
+        LoggerUtility.infoLog("The browser " + browser + " was closed with success");
+
+        LoggerUtility.finishTest(this.getClass().getSimpleName());
     }
 
 }

@@ -11,8 +11,6 @@ public class OpenAccountTest extends SharedData {
     @Test
     public void testMethod(){
 
-        openBrowser();
-
         IndexPage indexPage = new IndexPage(getDriver());
         indexPage.interactWithBankManagerMenu();
 
@@ -21,12 +19,10 @@ public class OpenAccountTest extends SharedData {
 
         BankManagerOpenAccountPage bankManagerOpenAccountPage = new BankManagerOpenAccountPage(getDriver());
         bankManagerOpenAccountPage.chooseCustomerName("Harry Potter");
-        bankManagerOpenAccountPage.chooseCurrency("LEu");
+        bankManagerOpenAccountPage.chooseCurrency("Dollar");
         bankManagerOpenAccountPage.clickProcess();
         bankManagerOpenAccountPage.validateNewAccountCreated();
         bankManagerOpenAccountPage.dealAlertOk();
 
-        clearEnvironment();
     }
-
 }

@@ -1,5 +1,6 @@
 package pages;
 
+import loggerUtility.LoggerUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -61,51 +62,59 @@ public class CustomerAccountPage extends BasePage{
             if (Objects.equals(accountNumber, allUserAccounts.get(index).getText()))
             {
                 accountList.selectByValue("number:" + accountNumber);
+                LoggerUtility.infoLog("User selects the account number: " + accountNumber + " for the logged in customer");
             } else notFoundCounter++;
         }
         if(notFoundCounter == allUserAccounts.size())
         {
-            System.out.println("This account number does not exist");
+            LoggerUtility.infoLog("This account number does not exist");
         }
     }
 
     public void clickTransactionsButton(){
+        elementHelper.waitVisibleElement(transactionsButton);
         elementHelper.clickJSElement(transactionsButton);
+        LoggerUtility.infoLog("User clicks on the Transactions button");
     }
 
     public void clickDepositButton(){
         elementHelper.clickJSElement(depositButton);
+        LoggerUtility.infoLog("User clicks on the Deposit button");
     }
 
     public void clickWithdrawalButton(){
         elementHelper.clickJSElement(withdrawalButton);
+        LoggerUtility.infoLog("User clicks on the Withdrawal button");
     }
 
     public void enterDepositAmount(int amount){
-        clickDepositButton();
         elementHelper.fillElement(amountEntered, String.valueOf(amount));
         elementHelper.clickJSElement(clickDepositOrWithdrawal);
+        LoggerUtility.infoLog("User deposits an amount of: " + amount);
     }
 
     public void enterWithdrawalAmount(int amount){
-        clickWithdrawalButton();
         elementHelper.fillElement(amountEntered, String.valueOf(amount));
         elementHelper.clickJSElement(clickDepositOrWithdrawal);
+        LoggerUtility.infoLog("User withdraws an amount of: " + amount);
     }
 
     public void validateSuccessfulDeposit(){
         elementHelper.waitVisibleElement(messageAfterDepositWithdrawal);
         elementHelper.validateElementEqualsText(messageAfterDepositWithdrawal, "Deposit Successful");
+        LoggerUtility.infoLog("User validates the successful deposit");
     }
 
     public void validateSuccessfulWithdrawal(){
         elementHelper.waitVisibleElement(messageAfterDepositWithdrawal);
         elementHelper.validateElementEqualsText(messageAfterDepositWithdrawal, "Transaction successful");
+        LoggerUtility.infoLog("User validates the successful withdrawal");
     }
 
     public void validateUnsuccessfulWithdrawal(){
         elementHelper.waitVisibleElement(messageAfterDepositWithdrawal);
         elementHelper.validateElementEqualsText(messageAfterDepositWithdrawal, "Transaction Failed. You can not withdraw amount more than the balance.");
+        LoggerUtility.infoLog("User validates the unsuccessful withdrawal");
     }
 
     public void validateUserLogin(String user){
@@ -113,27 +122,31 @@ public class CustomerAccountPage extends BasePage{
         elementHelper.waitVisibleElement(userName);
         elementHelper.validateElementContainsText(welcomeMessage,"Welcome");
         elementHelper.validateElementContainsText(userName, user);
+        LoggerUtility.infoLog("User validates the successful login of the user: " + user);
     }
 
     public void validateAccountSelection(String accountNumber) {
         elementHelper.waitVisibleList(selectAccountDetails);
         elementHelper.validateElementContainsText(selectAccountDetails.get(0), accountNumber);
+        LoggerUtility.infoLog("User validates the selection of the account number: " + accountNumber);
     }
 
     public void validateBalanceAfterDeposit(int amount){
         elementHelper.waitVisibleList(selectAccountDetails);
-        int initialDepositValue = Integer.parseInt(selectAccountDetails.get(1).getText());
+        int balanceAfterDeposit = Integer.parseInt(selectAccountDetails.get(1).getText()) + amount;
         enterDepositAmount(amount);
         validateSuccessfulDeposit();
-        Assert.assertEquals(amount+initialDepositValue,Integer.parseInt(selectAccountDetails.get(1).getText()));
+        Assert.assertEquals(balanceAfterDeposit,Integer.parseInt(selectAccountDetails.get(1).getText()));
+        LoggerUtility.infoLog("User validates the new balance after a new deposit " + balanceAfterDeposit);
     }
 
     public void validateBalanceAfterWithdrawal(int amount){
         elementHelper.waitVisibleList(selectAccountDetails);
-        int initialWithdrawalValue = Integer.parseInt(selectAccountDetails.get(1).getText());
+        int balanceAfterWithdrawal = Integer.parseInt(selectAccountDetails.get(1).getText()) - amount;
         enterWithdrawalAmount(amount);
         validateSuccessfulWithdrawal();
-        Assert.assertEquals(initialWithdrawalValue - amount,Integer.parseInt(selectAccountDetails.get(1).getText()));
+        Assert.assertEquals(balanceAfterWithdrawal,Integer.parseInt(selectAccountDetails.get(1).getText()));
+        LoggerUtility.infoLog("User validates the new balance after a new withdrawal: " + balanceAfterWithdrawal);
     }
 
 }

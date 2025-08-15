@@ -1,5 +1,6 @@
 package pages;
 
+import loggerUtility.LoggerUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,14 +22,17 @@ public class BankManagerPage extends BasePage{
 
     public void interactWithAddCustomer(){
         elementHelper.clickJSElement(addCustomerTab);
+        LoggerUtility.infoLog("The user clicks on the Add Customer button");
     }
 
     public void interactWithOpenAccount(){
         elementHelper.clickJSElement(openAccountTab);
+        LoggerUtility.infoLog("The user clicks on the Open Account button");
     }
 
     public void interactWithCustomers(){
         elementHelper.clickJSElement(customersTab);
+        LoggerUtility.infoLog("The user clicks on the Customers button");
     }
 
 }

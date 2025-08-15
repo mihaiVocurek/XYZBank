@@ -1,5 +1,6 @@
 package pages;
 
+import loggerUtility.LoggerUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -38,11 +39,12 @@ public class BankManagerOpenAccountPage extends BasePage{
             if (Objects.equals(customerFullName,allCustomerNames.get(index).getText()))
             {
                 customerList.selectByVisibleText(customerFullName);
+                LoggerUtility.infoLog("User chooses the customer name: " + customerFullName + " from the list");
             } else notFoundCounter++;
         }
         if(notFoundCounter == allCustomerNames.size())
         {
-            System.out.println("This customer name does not exist");
+            LoggerUtility.infoLog("This customer name does not exist");
         }
 
     }
@@ -55,33 +57,39 @@ public class BankManagerOpenAccountPage extends BasePage{
             if (Objects.equals(currencyValue,allCurrencies.get(index).getText()))
             {
                 currencyList.selectByValue(currencyValue);
+                LoggerUtility.infoLog("User chooses the currency: " + currencyValue + " from the list");
             } else notFoundCounter++;
         }
         if(notFoundCounter == allCurrencies.size())
         {
-            System.out.println("This currency does not exist");
+            LoggerUtility.infoLog("This currency does not exist");
         }
 
     }
 
     public void clickProcess(){
         elementHelper.clickJSElement(processButton);
+        LoggerUtility.infoLog("User clicks on the Process button");
     }
 
     public void dealAlertOk(){
         alertHelper.clickAlertOk();
+        LoggerUtility.infoLog("User deals with the alert presence");
     }
 
     public String getAlertText(){
+        LoggerUtility.infoLog("User gets the alert text: " + alertHelper.getNewAccountAlertText());
         return alertHelper.getNewAccountAlertText();
     }
 
     public void validateNewAccountCreated(){
         alertHelper.validateSuccessfullyOpenedAccount();
+        LoggerUtility.infoLog("User validates the successful creation of a new account");
     }
 
     public int getNewAccountNumer(){
         String alertMessage = alertHelper.getNewAccountAlertText();
+        LoggerUtility.infoLog("User gets the number of the newly created account: " + alertMessage.substring(alertMessage.indexOf(":")+1));
         return Integer.parseInt(alertMessage.substring(alertMessage.indexOf(":")+1));
     }
 
