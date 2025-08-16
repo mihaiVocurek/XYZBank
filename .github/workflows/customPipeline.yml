@@ -1,0 +1,39 @@
+name: Regression Pipeline
+
+on:
+  workflow_dispatch: 
+    inputs:
+      browser: 
+        description: 'Choose browser:'
+        required: true
+        default: 'Chrome'
+        type: choice
+        options:
+          - 'Chrome'
+          - 'Edge'
+          - 'Firefox'
+      threads:
+        description: 'Choose number of threads (1-5)'
+        required: true
+        default: 2
+        type: number
+      tags:
+        description: 'Provide suite tag or tags'
+        required: true
+        default: '@BankManager,@Customer'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Run Regression Suite
+      run: mvn clean install -Dbrowser=${{ github.event.inputs.browser }} -Dthreads=${{ github.event.inputs.threads }} -Dcicd=true -Dgroups=${{ github.event.inputs.tags }}
