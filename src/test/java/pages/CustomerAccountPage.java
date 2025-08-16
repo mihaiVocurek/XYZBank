@@ -99,8 +99,8 @@ public class CustomerAccountPage extends BasePage{
         LoggerUtility.infoLog("User withdraws an amount of: " + amount);
     }
 
-    public void refreshTransactionsPage(){
-        pageHelper.refreshWebpage();
+    public void clickLogoutButton(){
+        elementHelper.clickJSElement(logoutButton);
     }
 
     public void validateSuccessfulDeposit(){

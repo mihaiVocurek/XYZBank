@@ -29,7 +29,10 @@ public class CheckWithdrawalInTransactionsTest extends SharedData {
         customerAccountPage.clickWithdrawalButton();
         customerAccountPage.enterWithdrawalAmount(50);
         customerAccountPage.validateSuccessfulWithdrawal();
-        customerAccountPage.refreshTransactionsPage();
+
+        customerAccountPage.clickLogoutButton();
+        customerPage.chooseUserForLogin("Hermoine Granger");
+        customerPage.clickLogin();
         customerAccountPage.clickTransactionsButton();
 
         CustomerTransactionsPage customerTransactionsPage = new CustomerTransactionsPage(getDriver());

@@ -29,6 +29,12 @@ public class CheckDepositInTransactionsTest extends SharedData {
         customerAccountPage.clickDepositButton();
         customerAccountPage.enterDepositAmount(100);
         customerAccountPage.validateSuccessfulDeposit();
+
+        customerAccountPage.clickLogoutButton();
+        customerPage.chooseUserForLogin("Hermoine Granger");
+        customerPage.clickLogin();
+        customerAccountPage.selectAccountNumber("1003");
+
         customerAccountPage.clickTransactionsButton();
 
         CustomerTransactionsPage customerTransactionsPage = new CustomerTransactionsPage(getDriver());
