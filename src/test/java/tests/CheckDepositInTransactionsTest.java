@@ -7,10 +7,11 @@ import pages.CustomerPage;
 import pages.CustomerTransactionsPage;
 import pages.IndexPage;
 import sharedData.SharedData;
+import suite.Suite;
 
 public class CheckDepositInTransactionsTest extends SharedData {
 
-    @Test
+    @Test(groups = {Suite.SANITY_SUITE, Suite.REGRESSION_SUITE, Suite.CUSTOMER_SUITE})
     public void testMethod() {
 
         int depositAmount = 100;
@@ -28,12 +29,10 @@ public class CheckDepositInTransactionsTest extends SharedData {
         customerAccountPage.clickDepositButton();
         customerAccountPage.enterDepositAmount(100);
         customerAccountPage.validateSuccessfulDeposit();
-
         customerAccountPage.clickTransactionsButton();
 
         CustomerTransactionsPage customerTransactionsPage = new CustomerTransactionsPage(getDriver());
         customerTransactionsPage.validateLatestTransaction(depositAmount, transactionType.Deposit);
 
     }
-
 }

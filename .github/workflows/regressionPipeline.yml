@@ -7,7 +7,7 @@ on:
         description: 'Choose browser:'
         required: true
         default: 'Chrome'
-        type: Choice
+        type: choice
         options:
           - 'Chrome'
           - 'Edge'

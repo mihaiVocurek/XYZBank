@@ -3,10 +3,11 @@ package tests;
 import org.testng.annotations.Test;
 import pages.*;
 import sharedData.SharedData;
+import suite.Suite;
 
 public class FullManagerFlowTest extends SharedData {
 
-    @Test
+    @Test(groups = {Suite.SANITY_SUITE, Suite.REGRESSION_SUITE, Suite.BANK_MANAGER_SUITE})
     public void testMethod(){
 
         String customerFirstName = "Fane";

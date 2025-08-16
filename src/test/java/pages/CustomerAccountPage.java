@@ -20,7 +20,7 @@ public class CustomerAccountPage extends BasePage{
     @FindBy(xpath = "//button[@class='btn logout']")
     private WebElement logoutButton;
 
-    @FindBy(xpath = "//div/strong/span")
+    @FindBy(xpath = "//span[@class= 'fontBig ng-binding']")
     private WebElement userName;
 
     @FindBy(xpath = "//div/strong/span/..")
@@ -97,6 +97,10 @@ public class CustomerAccountPage extends BasePage{
         elementHelper.fillElement(amountEntered, String.valueOf(amount));
         elementHelper.clickJSElement(clickDepositOrWithdrawal);
         LoggerUtility.infoLog("User withdraws an amount of: " + amount);
+    }
+
+    public void refreshTransactionsPage(){
+        pageHelper.refreshWebpage();
     }
 
     public void validateSuccessfulDeposit(){

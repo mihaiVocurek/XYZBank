@@ -6,10 +6,11 @@ import pages.CustomerPage;
 import pages.CustomerTransactionsPage;
 import pages.IndexPage;
 import sharedData.SharedData;
+import suite.Suite;
 
 public class ResetCustomerTransactionsTest extends SharedData {
 
-    @Test
+    @Test(groups = {Suite.SANITY_SUITE, Suite.REGRESSION_SUITE, Suite.CUSTOMER_SUITE})
     public void testMethod(){
 
         String userFullName = "Hermoine Granger";
@@ -22,8 +23,8 @@ public class ResetCustomerTransactionsTest extends SharedData {
         customerPage.clickLogin();
 
         CustomerAccountPage customerAccountPage = new CustomerAccountPage(getDriver());
-        customerAccountPage.clickTransactionsButton();
         customerAccountPage.validateUserLogin(userFullName);
+        customerAccountPage.clickTransactionsButton();
 
         CustomerTransactionsPage customerTransactionsPage = new CustomerTransactionsPage(getDriver());
         customerTransactionsPage.clickBackButton();

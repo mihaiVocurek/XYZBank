@@ -5,10 +5,11 @@ import pages.BankManagerAddCustomerPage;
 import pages.BankManagerPage;
 import pages.IndexPage;
 import sharedData.SharedData;
+import suite.Suite;
 
 public class AddNewCustomerTest extends SharedData {
 
-    @Test
+    @Test(groups = {Suite.SMOKE_SUITE, Suite.REGRESSION_SUITE, Suite.BANK_MANAGER_SUITE})
     public void testMethod(){
 
         IndexPage indexPage = new IndexPage(getDriver());

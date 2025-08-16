@@ -7,13 +7,13 @@ import pages.CustomerPage;
 import pages.CustomerTransactionsPage;
 import pages.IndexPage;
 import sharedData.SharedData;
+import suite.Suite;
 
 public class CheckWithdrawalInTransactionsTest extends SharedData {
 
-    @Test
+    @Test(groups = {Suite.SANITY_SUITE, Suite.REGRESSION_SUITE, Suite.CUSTOMER_SUITE})
     public void testMethod() {
 
-        int depositAmount = 100;
         int withdrawalAmount = 50;
 
         IndexPage indexPage = new IndexPage(getDriver());
@@ -29,7 +29,7 @@ public class CheckWithdrawalInTransactionsTest extends SharedData {
         customerAccountPage.clickWithdrawalButton();
         customerAccountPage.enterWithdrawalAmount(50);
         customerAccountPage.validateSuccessfulWithdrawal();
-        indexPage.refreshWebpage();
+        customerAccountPage.refreshTransactionsPage();
         customerAccountPage.clickTransactionsButton();
 
         CustomerTransactionsPage customerTransactionsPage = new CustomerTransactionsPage(getDriver());

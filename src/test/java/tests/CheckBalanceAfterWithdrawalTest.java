@@ -5,10 +5,11 @@ import pages.CustomerAccountPage;
 import pages.CustomerPage;
 import pages.IndexPage;
 import sharedData.SharedData;
+import suite.Suite;
 
 public class CheckBalanceAfterWithdrawalTest extends SharedData {
 
-    @Test
+    @Test(groups = {Suite.SANITY_SUITE, Suite.REGRESSION_SUITE, Suite.CUSTOMER_SUITE})
     public void testMethod() {
 
         String userFullName = "Hermoine Granger";
