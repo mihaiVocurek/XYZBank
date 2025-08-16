@@ -19,4 +19,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Run Nightly Suite
-      run: mvn clean install -Dbrowser=Chrome -Dthreads=5 -Dcicd=true -Dgroups=@Smoke
+      run: mvn clean install -Dbrowser=Chrome -Dthreads=5 -Dcicd=true -Dgroups=@Smoke,@Sanity

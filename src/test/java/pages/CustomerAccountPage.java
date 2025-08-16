@@ -101,6 +101,7 @@ public class CustomerAccountPage extends BasePage{
 
     public void clickLogoutButton(){
         elementHelper.clickJSElement(logoutButton);
+        LoggerUtility.infoLog("User logs out");
     }
 
     public void validateSuccessfulDeposit(){
