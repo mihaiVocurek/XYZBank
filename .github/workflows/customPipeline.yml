@@ -1,4 +1,4 @@
-name: Regression Pipeline
+name: Custom Pipeline
 
 on:
   workflow_dispatch: 
