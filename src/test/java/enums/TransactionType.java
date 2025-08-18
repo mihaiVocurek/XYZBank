@@ -1,6 +1,6 @@
 package enums;
 
-public enum transactionType {
+public enum TransactionType {
     Deposit,
     Withdrawal
 }

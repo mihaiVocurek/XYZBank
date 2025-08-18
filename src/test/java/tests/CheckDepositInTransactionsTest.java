@@ -1,6 +1,6 @@
 package tests;
 
-import enums.transactionType;
+import enums.TransactionType;
 import org.testng.annotations.Test;
 import pages.CustomerAccountPage;
 import pages.CustomerPage;
@@ -38,7 +38,7 @@ public class CheckDepositInTransactionsTest extends SharedData {
         customerAccountPage.clickTransactionsButton();
 
         CustomerTransactionsPage customerTransactionsPage = new CustomerTransactionsPage(getDriver());
-        customerTransactionsPage.validateLatestTransaction(depositAmount, transactionType.Deposit);
+        customerTransactionsPage.validateLatestTransaction(depositAmount, TransactionType.Deposit);
 
     }
 }

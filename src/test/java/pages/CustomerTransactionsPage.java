@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import enums.transactionType;
+import enums.TransactionType;
 
 import java.util.List;
 
@@ -66,15 +66,15 @@ public class CustomerTransactionsPage extends BasePage {
         LoggerUtility.infoLog("User validates the table is empty");
     }
 
-    public void validateLatestTransaction(int amount, transactionType transaction){
+    public void validateLatestTransaction(int amount, TransactionType transaction){
         elementHelper.waitVisibleList(firstTableLine);
         sortTransactionsByDateTime();
         Assert.assertEquals(amount,Integer.parseInt(firstTableLine.get(1).getText()),"The amounts do not match");
-        if(transaction == transactionType.Deposit)
+        if(transaction == TransactionType.Deposit)
         {
             Assert.assertEquals(firstTableLine.get(2).getText(), "Credit", "Transaction Type is incorrect");
             LoggerUtility.infoLog("User validates the latest Deposit transaction of: " + amount);
-        } else if(transaction == transactionType.Withdrawal)
+        } else if(transaction == TransactionType.Withdrawal)
             {
                 Assert.assertEquals(firstTableLine.get(2).getText(), "Debit", "Transaction Type is incorrect");
                 LoggerUtility.infoLog("User validates the latest Withdrawal transaction of: " + amount);

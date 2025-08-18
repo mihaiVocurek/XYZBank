@@ -1,6 +1,6 @@
 package tests;
 
-import enums.transactionType;
+import enums.TransactionType;
 import org.testng.annotations.Test;
 import pages.CustomerAccountPage;
 import pages.CustomerPage;
@@ -36,7 +36,7 @@ public class CheckWithdrawalInTransactionsTest extends SharedData {
         customerAccountPage.clickTransactionsButton();
 
         CustomerTransactionsPage customerTransactionsPage = new CustomerTransactionsPage(getDriver());
-        customerTransactionsPage.validateLatestTransaction(withdrawalAmount, transactionType.Withdrawal);
+        customerTransactionsPage.validateLatestTransaction(withdrawalAmount, TransactionType.Withdrawal);
 
     }
 
