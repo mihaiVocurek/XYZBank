@@ -51,7 +51,7 @@
                     </suiteXmlFiles>
                     <systemPropertyVariables>
                         <browser>Chrome</browser>
-                        <cicd>false</cicd>
+                        <cicd>true</cicd>
                     </systemPropertyVariables>
                     <threadCount>5</threadCount>
                 </configuration>
